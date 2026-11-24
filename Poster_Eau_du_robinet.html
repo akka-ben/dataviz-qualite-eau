@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Poster – Que contient l'eau de votre robinet ?</title>
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  :root {
+    --bord: #8E1B2E;      /* bordeaux, comme le document de préparation */
+    --bord-clair: #F6ECEE;
+    --filet: #C79AA3;
+    --encre: #1A1A1A;
+    --gris: #5A5A5A;
+    --gris-clair: #EDEDED;
+    --orange: #D9661B;    /* emplacements à compléter */
+    --risque: #D64545;
+    --autres: #4E79A7; --bacteries: #F28E2B; --nitrates: #E15759; --pesticides: #76B7B2; --pfas: #59A14F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; color: var(--encre); }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 8.5pt; line-height: 1.28;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; padding: 10mm; overflow: hidden; position: relative; page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  b, strong { font-weight: 700; }
+  .todo { color: var(--orange); font-weight: 700; }
+
+  /* En-tête */
+  .titre { text-align: center; color: var(--bord); font-size: 21pt; font-weight: 700; line-height: 1.1; }
+  .sous-titre { text-align: center; font-size: 9.5pt; margin-top: 1.2mm; }
+  .sous-titre .sep { color: var(--gris); padding: 0 2.5mm; }
+  .partie { text-align: center; color: var(--gris); font-size: 9pt; font-style: italic; margin-top: 1mm; }
+  .entete-p2 { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 0.4mm solid var(--bord); padding-bottom: 1.2mm; }
+  .entete-p2 .t { color: var(--bord); font-size: 14pt; font-weight: 700; }
+  .entete-p2 .s { color: var(--gris); font-size: 8.5pt; }
+
+  /* Encadré à bandeau (style « Ce qui m'attend ») */
+  .encadre { border: 0.3mm solid var(--filet); background: var(--bord-clair); break-inside: avoid; }
+  .encadre > .bandeau { background: var(--bord); color: #fff; font-weight: 700; font-size: 9pt; padding: 1mm 2.5mm; }
+  .encadre > .corps { padding: 1.8mm 2.5mm; }
+
+  /* Titres de sections numérotées */
+  h2 { color: var(--bord); font-size: 11.5pt; font-weight: 700; border-bottom: 0.3mm solid var(--bord);
+       padding-bottom: 0.8mm; margin: 3.2mm 0 1.6mm; break-after: avoid; }
+  h2:first-child { margin-top: 0; }
+  h3 { font-size: 9pt; font-weight: 700; margin: 1.6mm 0 0.6mm; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 6mm; }
+  p + p { margin-top: 1mm; }
+
+  /* Chiffres clés */
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 3mm 0 3.2mm; }
+  .kpi { border: 0.3mm solid var(--filet); background: #fff; padding: 2mm 3mm; text-align: center; }
+  .kpi .n { font-size: 26pt; font-weight: 700; line-height: 1; color: var(--bord); }
+  .kpi .n.risque { color: var(--risque); }
+  .kpi .l { font-size: 8.5pt; margin-top: 1.2mm; }
+
+  /* Tableaux */
+  table { width: 100%; border-collapse: collapse; font-size: 8pt; line-height: 1.22; }
+  th { text-align: left; font-weight: 700; border-top: 0.35mm solid var(--encre); border-bottom: 0.25mm solid var(--encre); padding: 0.7mm 1.2mm; }
+  td { border-bottom: 0.15mm solid #BDBDBD; padding: 0.7mm 1.2mm; vertical-align: top; }
+  tr:last-child td { border-bottom: 0.3mm solid var(--encre); }
+  td.c, th.c { text-align: center; }
+  code { font-family: Menlo, "Courier New", monospace; font-size: 7.6pt; }
+
+  /* Familles */
+  .famille { display: grid; grid-template-columns: 3.4mm 22mm 1fr; column-gap: 1.6mm; align-items: start; padding: 0.7mm 0; border-bottom: 0.15mm solid #D8D8D8; }
+  .famille:last-child { border-bottom: none; }
+  .pastille { width: 3.4mm; height: 3.4mm; border-radius: 50%; margin-top: 0.2mm; }
+  .famille .nom { font-weight: 700; }
+
+  /* Schéma en 5 étapes */
+  .etapes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.6mm; margin: 1mm 0 1.4mm; }
+  .etape { position: relative; background: var(--bord-clair); border: 0.3mm solid var(--filet); padding: 1.3mm 1.2mm; font-size: 8pt; line-height: 1.2; }
+  .etape .num { display: inline-block; width: 4.2mm; height: 4.2mm; border-radius: 50%; background: var(--bord); color: #fff; text-align: center; font-weight: 700; font-size: 7.6pt; line-height: 4.2mm; margin-bottom: 0.8mm; }
+  .etape b { display: block; margin-bottom: 0.4mm; }
+  .etape:not(:last-child)::after { content: "›"; position: absolute; right: -1.55mm; top: 40%; color: var(--bord); font-weight: 700; font-size: 10pt; line-height: 1; }
+
+  .formule { font-family: Menlo, "Courier New", monospace; font-size: 8pt; background: #fff; border: 0.25mm solid var(--filet); padding: 1.3mm 2mm; margin: 1mm 0; line-height: 1.35; }
+  ul.compact { list-style: none; }
+  ul.compact li { position: relative; padding-left: 3mm; margin: 0.45mm 0; }
+  ul.compact li::before { content: "•"; color: var(--bord); position: absolute; left: 0; font-weight: 700; }
+
+  /* Graphiques */
+  figure { break-inside: avoid; }
+  figure img { display: block; width: 100%; height: auto; border: 0.2mm solid #DADADA; }
+  figcaption { font-size: 8pt; color: var(--gris); margin-top: 0.8mm; line-height: 1.22; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+  .duo img { height: 55mm; width: 100%; object-fit: contain; object-position: top left; }
+
+  ol.messages { list-style: none; counter-reset: m; }
+  ol.messages li { counter-increment: m; position: relative; padding-left: 5.2mm; margin: 0.9mm 0; }
+  ol.messages li::before { content: counter(m); position: absolute; left: 0; top: 0.1mm; width: 3.8mm; height: 3.8mm; border-radius: 50%; background: var(--bord); color: #fff; font-size: 7.4pt; font-weight: 700; text-align: center; line-height: 3.8mm; }
+
+  .pied { position: absolute; left: 10mm; right: 10mm; bottom: 10mm; display: grid; grid-template-columns: 1fr 26mm; column-gap: 4mm; align-items: center;
+          border-top: 0.4mm solid var(--bord); padding-top: 2mm; }
+  .pied .lien { font-size: 8.5pt; }
+  .pied .lien .url { font-family: Menlo, "Courier New", monospace; font-size: 7.8pt; word-break: break-all; color: var(--bord); }
+  .pied img { width: 26mm; height: 26mm; display: block; }
+  .source { font-size: 8pt; color: var(--gris); margin-top: 1mm; }
+  .qr p { margin: 0.5mm 0 0; }
+  .qr .q { font-style: italic; margin-top: 1.4mm; }
+  .qr .q b, .qr .r b { color: var(--bord); font-style: normal; }
+  .capture img { border: 0.2mm solid #CFCFCF; }
+  table.fil td:first-child { white-space: nowrap; font-weight: 700; color: var(--bord); }
+  .pied3 { position: absolute; left: 10mm; right: 10mm; bottom: 10mm; border-top: 0.4mm solid var(--bord); padding-top: 1.5mm; font-size: 8pt; color: var(--gris); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<!-- ======================= PAGE 1 ======================= -->
+<section class="page">
+  <div class="titre">Que contient l'eau de votre robinet ?</div>
+  <div class="sous-titre">Qualité de l'eau potable en France, 2021–2026<span class="sep">·</span>Séminaire BI et Data Viz (Ismail Rebai)<span class="sep">·</span>Projet Tableau Public</div>
+  <div class="partie">Page 1 — Le problème et la méthode</div>
+
+  <div class="encadre" style="margin-top:3mm">
+    <div class="bandeau">Problématique</div>
+    <div class="corps" style="font-size:9.5pt">
+      <b>Où l'eau du robinet dépasse-t-elle les limites sanitaires, et quels départements une Agence régionale de santé (ARS) doit-elle traiter en priorité ?</b>
+      En une phrase : avec un budget limité, où l'ARS doit-elle intervenir en premier ?
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">95,5 %</div><div class="l">des prélèvements <b>conformes</b> en 2025<br>(295 134 prélèvements)</div></div>
+    <div class="kpi"><div class="n risque">15,8 M</div><div class="l">d'habitants dans une commune touchée par les <b>pesticides</b> (5 954 communes, 2025)</div></div>
+    <div class="kpi"><div class="n risque">172</div><div class="l">communes au-dessus de la <b>limite européenne PFAS</b> (0,1 µg/L), 2025</div></div>
+  </div>
+
+  <div class="cols">
+    <!-- Colonne gauche -->
+    <div>
+      <h2>1. Les données</h2>
+      <p><b>Source :</b> ministère de la Santé, résultats du <b>contrôle sanitaire</b> de l'eau distribuée réalisé par les ARS, publiés commune par commune sur data.gouv.fr. Population et coordonnées : Insee (geo.api.gouv.fr).</p>
+      <p><b>Période :</b> 2021 à 2026 (2026 incomplet, janvier à octobre). <b>Volume :</b> ≈ <b>1,6 million de prélèvements</b> et plusieurs millions d'analyses ; 34 817 communes contrôlées en 2025.</p>
+      <p><b>Vocabulaire :</b> un <i>prélèvement</i> est un échantillon d'eau ; une <i>analyse</i> est la mesure d'un paramètre ; une <i>commune touchée</i> a au moins un dépassement de limite dans l'année.</p>
+      <h3>Les 6 fichiers préparés pour Tableau</h3>
+      <table>
+        <tr><th>Fichier</th><th>Une ligne =</th><th>Sert à</th></tr>
+        <tr><td><code>1_communes</code></td><td>commune × famille × année</td><td>archive (non utilisé)</td></tr>
+        <tr><td><code>1b_communes_2025</code></td><td>commune × famille (2025)</td><td>carte communes, « Ma commune »</td></tr>
+        <tr><td><code>2_departements</code></td><td>département × famille × année</td><td>évolution, carte de chaleur</td></tr>
+        <tr><td><code>3_conformite</code></td><td>département × mois</td><td>conformité, chiffres clés</td></tr>
+        <tr><td><code>4_substances</code></td><td>substance × année</td><td>top 10 des substances</td></tr>
+        <tr><td><code>5_score</code></td><td>département × année</td><td>carte départements, top 10</td></tr>
+      </table>
+
+      <h2>2. Les 5 familles de polluants</h2>
+      <div class="famille"><span class="pastille" style="background:var(--bacteries)"></span><span class="nom">Bactéries</span><span><i>E. coli</i>, entérocoques : risque <b>immédiat</b> (gastro-entérites), contamination fécale.</span></div>
+      <div class="famille"><span class="pastille" style="background:var(--nitrates)"></span><span class="nom">Nitrates</span><span>Engrais agricoles, limite 50 mg/L ; risque pour nourrissons et femmes enceintes.</span></div>
+      <div class="famille"><span class="pastille" style="background:var(--pesticides)"></span><span class="nom">Pesticides</span><span>Molécules et <b>métabolites</b> (chloridazone, chlorothalonil) ; exposition chronique.</span></div>
+      <div class="famille"><span class="pastille" style="background:var(--pfas)"></span><span class="nom">PFAS</span><span>« Polluants éternels » ; limite européenne depuis janvier 2026, mesurés en masse depuis 2025.</span></div>
+      <div class="famille"><span class="pastille" style="background:var(--autres)"></span><span class="nom">Autres</span><span>Turbidité, chlorure de vinyle, métaux : paramètres physico-chimiques divers.</span></div>
+
+      <h2>3. Les utilisateurs</h2>
+      <table>
+        <tr><th>Utilisateur</th><th>Besoin</th><th>Tableau de bord</th></tr>
+        <tr><td><b>Décideur</b> (ARS, préfecture)</td><td>Comparer, prioriser</td><td>« Vue France »</td></tr>
+        <tr><td><b>Citoyen</b></td><td>Connaître l'eau de sa commune</td><td>« Ma commune »</td></tr>
+      </table>
+    </div>
+
+    <!-- Colonne droite -->
+    <div>
+      <h2>4. La méthode</h2>
+      <h3>Préparation des données en 5 étapes</h3>
+      <div class="etapes">
+        <div class="etape"><span class="num">1</span><b>Télécharger</b>6 fichiers annuels (1,7 Go)</div>
+        <div class="etape"><span class="num">2</span><b>Nettoyer</b>codes en texte, doublons</div>
+        <div class="etape"><span class="num">3</span><b>Classer</b>en 5 familles</div>
+        <div class="etape"><span class="num">4</span><b>Comparer</b>à la limite de qualité</div>
+        <div class="etape"><span class="num">5</span><b>Agréger</b>6 CSV + score</div>
+      </div>
+      <p><b>Des taux, pas des comptes :</b> un grand département a forcément plus de dépassements ; on compare donc des taux et des parts de population.</p>
+
+      <div class="encadre" style="margin-top:2mm">
+        <div class="bandeau">Le score de priorité (par département)</div>
+        <div class="corps">
+          <div class="formule">score = 0,30 × bactéries + 0,20 × nitrates<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0,20 × pesticides + 0,20 × PFAS<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0,10 × autres</div>
+          <p>Chaque <b>risque</b> = part de la population touchée, pondérée par le taux de dépassement de sa commune (%).</p>
+          <ul class="compact">
+            <li><b>30 % bactéries :</b> seul risque immédiat. <b>20 %</b> pour les 3 risques chroniques. <b>10 % autres :</b> surtout du confort.</li>
+            <li>Rang 1 = le plus prioritaire ; score 2025 de 0,01 à 11,58. Les poids sont un <b>choix de décideur</b>, modifiable par un paramètre.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>5. Les techniques Tableau</h2>
+      <table>
+        <tr><th>Technique</th><th>Utilisation</th></tr>
+        <tr><td><b>Cartes</b></td><td>Symboles proportionnels ; ≈ 35 000 communes en points</td></tr>
+        <tr><td><b>Champs calculés</b></td><td>Taux, score pondéré, <code>ZN</code>, <code>IF … THEN</code></td></tr>
+        <tr><td><b>LOOKUP</b></td><td>Variation d'une année sur l'autre</td></tr>
+        <tr><td><b>RANK</b></td><td>Rang de chaque département</td></tr>
+        <tr><td><b>FIXED</b></td><td>Population d'une commune comptée une seule fois</td></tr>
+        <tr><td><b>Contexte + Top N</b></td><td>Filtre Année appliqué <b>avant</b> le Top 10</td></tr>
+        <tr><td><b>Action de filtre</b></td><td>Clic sur un département → filtre la vue</td></tr>
+        <tr><td><b>Publication</b></td><td>Tableau Public (lien et QR code au verso)</td></tr>
+      </table>
+
+      <div class="encadre" style="margin-top:3mm">
+        <div class="bandeau">Les 2 tableaux de bord</div>
+        <div class="corps">
+          <p><b>« Vue France » (décideur) :</b> chiffres clés, carte, Top 10, courbes, chaleur ; un clic sur un département filtre la vue.</p>
+          <p><b>« Ma commune » (citoyen) :</b> on tape sa commune, on voit ses résultats par famille.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PAGE 2 ======================= -->
+<section class="page">
+  <div class="entete-p2"><span class="t">Les résultats et la décision</span><span class="s">Que contient l'eau de votre robinet ? · Page 2</span></div>
+
+  <div class="cols" style="margin-top:2.4mm">
+    <!-- Colonne gauche -->
+    <div>
+      <h2>6. Évolution 2021–2026</h2>
+      <div class="duo">
+        <figure>
+          <img src="captures/evolution_conformite.png" alt="Taux de non-conformité par année, de 5,45 % en 2021 à 4,51 % en 2025">
+          <figcaption><b>Non-conformité :</b> 5,5 % (2021) → 5,8 % (2024) → <b>4,5 % (2025)</b> ; 4,6 % en 2026 (partiel).</figcaption>
+        </figure>
+        <figure>
+          <img src="captures/evolution_famille.png" alt="Taux de dépassement par famille : pesticides entre 12 et 18 %, les autres familles sous 4 %">
+          <figcaption><b>Pesticides :</b> 14,7 → 18,2 % (2024) → 12,2 % (2025) → 16,4 % (2026). Autres : 1,5–3,6 % ; bactéries et nitrates : 0,4–0,7 %. PFAS exclus.</figcaption>
+        </figure>
+      </div>
+
+      <h2>7. Top 10 des départements prioritaires (2025)</h2>
+      <figure>
+        <img src="captures/top10.png" alt="Top 10 des départements par score : Somme 11,58, Marne 9,44, Aisne 9,24">
+        <figcaption><b>5 sur 10</b> en Hauts-de-France, 3 en Normandie (grandes cultures) ; la Guyane fait exception.</figcaption>
+      </figure>
+
+      <h2>8. Top 10 des substances (2025)</h2>
+      <figure>
+        <img src="poster_assets/top10_substances.png" alt="Substances avec le plus de dépassements en 2025, chloridazone desphényl en tête avec 4 448">
+        <figcaption>Analyses au-dessus de la limite. En tête : des <b>métabolites</b> de pesticides interdits (chloridazone et chlorothalonil en 2020, atrazine en 2003).</figcaption>
+      </figure>
+
+      <h2>11. Limites</h2>
+      <ul class="compact">
+        <li><b>Pondération :</b> d'autres poids changeraient le classement.</li>
+        <li><b>Données :</b> PFAS peu mesurés avant 2025 ; 2026 incomplet.</li>
+        <li><b>Dépassement ≠ danger :</b> seuils de précaution.</li>
+        <li><b>Commune touchée</b> dès 1 dépassement (majorant).</li>
+      </ul>
+    </div>
+
+    <!-- Colonne droite -->
+    <div>
+      <h2>9. Carte de chaleur : régions × familles (2025)</h2>
+      <figure>
+        <img src="captures/carte_chaleur.png" alt="Carte de chaleur du taux de dépassement par région et famille en 2025">
+        <figcaption>Taux de dépassement (0,4638 = 46,4 %). <b>Pesticides :</b> Hauts-de-France 46,4 %, Normandie 29,7 %, Grand Est 16,2 %. <b>Bactéries :</b> Corse 6,8 %, Guyane 4,5 %. <b>PFAS :</b> Grand Est 6,5 %, Auvergne-Rhône-Alpes 3,0 %. <b>Autres :</b> Guyane 27,1 %.</figcaption>
+      </figure>
+
+      <div class="encadre" style="margin-top:2.6mm">
+        <div class="bandeau">Les 5 messages clés</div>
+        <div class="corps">
+          <ol class="messages">
+            <li><b>L'eau est globalement bonne :</b> plus de 94 % de prélèvements conformes chaque année, 95,5 % en 2025.</li>
+            <li><b>Les pesticides sont le problème n°1 :</b> 5 954 communes et 15,8 millions d'habitants concernés en 2025.</li>
+            <li><b>Le problème est géographique :</b> Hauts-de-France, Normandie, Grand Est, zones de grandes cultures.</li>
+            <li><b>C'est une pollution héritée :</b> des métabolites de pesticides interdits depuis des années.</li>
+            <li><b>Les PFAS sont le prochain enjeu :</b> 172 communes au-dessus de la nouvelle limite, mesures encore récentes.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h2>10. Recommandations pour une ARS</h2>
+      <table>
+        <tr><th class="c">#</th><th>Action</th><th>Où</th></tr>
+        <tr><td class="c">1</td><td>Traiter les métabolites de pesticides (charbon actif, interconnexion, dilution)</td><td>Somme, Marne, Aisne, Oise, Pas-de-Calais</td></tr>
+        <tr><td class="c">2</td><td>Protéger les captages (aires d'alimentation, moins d'intrants)</td><td>Hauts-de-France, Normandie, Grand Est</td></tr>
+        <tr><td class="c">3</td><td>Renforcer la surveillance des PFAS et informer</td><td>Grand Est, Auvergne-Rhône-Alpes, 172 communes</td></tr>
+        <tr><td class="c">4</td><td>Améliorer le traitement bactériologique des petits réseaux</td><td>Corse, Guyane, Mayotte, Guadeloupe</td></tr>
+        <tr><td class="c">5</td><td>Informer les citoyens avec l'outil « Ma commune »</td><td>Partout</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="pied">
+    <div class="lien">
+      <b>Explorer les tableaux de bord sur Tableau Public</b> (« Vue France » et « Ma commune ») :<br>
+      <span class="url">https://public.tableau.com/app/profile/mohammed.benakka.ouayad/viz/Qualitdeleaudurobinet/VueFrance</span>
+      <div class="source">Source : ministère de la Santé, contrôle sanitaire de l'eau (SISE-Eaux, data.gouv.fr), 2021–2026 · Insee · Traitement et calculs du groupe.</div>
+    </div>
+    <img src="poster_assets/qr_tableau.png" alt="QR code vers le classeur Tableau Public">
+  </div>
+</section>
+
+<!-- ======================= PAGE 3 ======================= -->
+<section class="page">
+  <div class="entete-p2"><span class="t">Les tableaux de bord et l'oral</span><span class="s">Que contient l'eau de votre robinet ? · Page 3</span></div>
+
+  <div class="cols" style="margin-top:2.4mm">
+    <!-- Colonne gauche -->
+    <div>
+      <h2>12. Tableau de bord « Vue France » (décideur)</h2>
+      <figure class="capture">
+        <img src="captures/vue_france.png" alt="Tableau de bord Vue France : chiffres clés, carte, Top 10, courbes et carte de chaleur">
+        <figcaption>Lecture en 10 secondes : <b>3 chiffres</b> (295 134 prélèvements, 95,49 % conformes, 15 762 665 habitants) → <b>où</b> (carte) → <b>qui en premier</b> (Top 10) → <b>quel polluant</b> (courbes) → <b>quelle région</b> (chaleur). Un clic sur un département filtre les autres graphiques.</figcaption>
+      </figure>
+
+      <h2>13. Carte des départements (2025)</h2>
+      <figure class="capture">
+        <img src="captures/carte_departements.png" alt="Carte des départements : cercles rouges proportionnels au score, les plus gros dans le nord">
+        <figcaption>Taille et couleur du cercle = score de priorité. Les plus gros cercles se concentrent dans le <b>nord de la France</b>.</figcaption>
+      </figure>
+
+      <h2>14. Le fil rouge de l'oral (10 minutes)</h2>
+      <table class="fil">
+        <tr><th>Temps</th><th>Partie et ce qu'on dit</th></tr>
+        <tr><td>0:00</td><td><b>Accroche :</b> « Savez-vous ce qu'il y a dans l'eau que vous avez bue ce matin ? »</td></tr>
+        <tr><td>0:30</td><td><b>Problématique :</b> où l'eau dépasse-t-elle les limites ? Où l'ARS doit-elle agir en premier ?</td></tr>
+        <tr><td>1:30</td><td><b>Données :</b> source officielle, 1,6 M de prélèvements, 5 familles, 6 fichiers.</td></tr>
+        <tr><td>3:00</td><td><b>Méthode :</b> des taux plutôt que des comptes ; le score pondéré et ses poids.</td></tr>
+        <tr><td>4:30</td><td><b>Démo « Vue France » :</b> chiffres → carte → Top 10 → clic sur la Somme → courbes → chaleur.</td></tr>
+        <tr><td>7:00</td><td><b>Démo « Ma commune » :</b> taper une commune connue du jury, lire la fiche.</td></tr>
+        <tr><td>8:00</td><td><b>Résultats :</b> les 5 messages clés et les recommandations.</td></tr>
+        <tr><td>9:00</td><td><b>Limites :</b> pondération, PFAS récents, 2026 partiel.</td></tr>
+        <tr><td>9:30</td><td><b>Conclusion :</b> « L'eau est bonne à 95 %, mais 15,8 millions de personnes vivent dans une commune touchée par les pesticides, surtout dans le Nord. C'est là qu'il faut agir. »</td></tr>
+      </table>
+    </div>
+
+    <!-- Colonne droite -->
+    <div>
+      <h2>15. Tableau de bord « Ma commune » (citoyen)</h2>
+      <figure class="capture">
+        <img src="captures/ma_commune.png" alt="Tableau de bord Ma commune : fiche par famille et carte des communes touchées">
+        <figcaption>On tape sa commune : la fiche (prélèvements et dépassements par famille) et la carte (rouge = touchée) n'affichent plus qu'elle. Filtre vide = toute la France.</figcaption>
+      </figure>
+
+      <h2>16. Questions probables du jury</h2>
+      <div class="qr">
+        <p class="q"><b>Q :</b> Pourquoi ces poids dans le score ?</p>
+        <p class="r"><b>R :</b> Les bactéries rendent malade tout de suite (30 %) ; les risques chroniques comptent 20 % ; « autres » regroupe surtout du confort (10 %). C'est un choix discutable, d'où le paramètre modifiable.</p>
+        <p class="q"><b>Q :</b> Pourquoi le filtre Année est-il en contexte ?</p>
+        <p class="r"><b>R :</b> Sans contexte, Tableau calcule le Top 10 sur toutes les années puis filtre 2025 : le classement serait faux.</p>
+        <p class="q"><b>Q :</b> À quoi sert le FIXED ?</p>
+        <p class="r"><b>R :</b> Chaque commune a 5 lignes, une par famille. <code>{FIXED [code_insee] : MAX([population])}</code> prend sa population une seule fois.</p>
+        <p class="q"><b>Q :</b> Pourquoi les PFAS ne sont-ils pas sur la courbe ?</p>
+        <p class="r"><b>R :</b> Ils n'étaient presque pas mesurés avant 2025 : la courbe montrerait une fausse évolution.</p>
+        <p class="q"><b>Q :</b> Un dépassement, c'est dangereux ?</p>
+        <p class="r"><b>R :</b> Pas forcément : les limites sont des seuils de précaution, et l'ARS évalue ensuite le risque.</p>
+        <p class="q"><b>Q :</b> Pourquoi les pesticides surtout dans le Nord ?</p>
+        <p class="r"><b>R :</b> Zones de grandes cultures ; les métabolites d'herbicides et de fongicides persistent dans les nappes après l'interdiction.</p>
+        <p class="q"><b>Q :</b> Non-conformité ou dépassement : quelle différence ?</p>
+        <p class="r"><b>R :</b> La non-conformité porte sur tous les prélèvements ; le taux de dépassement est calculé par famille de polluant.</p>
+      </div>
+
+      <h2>17. Glossaire</h2>
+      <table>
+        <tr><td><b>ARS</b></td><td>Agence régionale de santé, qui organise le contrôle sanitaire</td></tr>
+        <tr><td><b>Métabolite</b></td><td>Produit de dégradation d'un pesticide</td></tr>
+        <tr><td><b>PFAS</b></td><td>Substances per- et polyfluoroalkylées, « polluants éternels »</td></tr>
+        <tr><td><b>Calcul de table</b></td><td>Calcul sur les résultats affichés (<code>RANK</code>, <code>LOOKUP</code>)</td></tr>
+        <tr><td><b>Expression LOD</b></td><td>Calcul à un niveau de détail fixé (<code>FIXED</code>)</td></tr>
+        <tr><td><b>Filtre de contexte</b></td><td>Filtre appliqué en premier, avant le Top N</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="pied3"><span>Source : ministère de la Santé, contrôle sanitaire de l'eau (data.gouv.fr), 2021–2026 · Insee</span><span>Lien et QR code du classeur Tableau Public : page 2</span></div>
+</section>
+
+</body>
+</html>

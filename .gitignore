@@ -1,0 +1,17 @@
+# Données brutes téléchargées depuis data.gouv.fr (1,6 Go, trop lourdes pour GitHub)
+raw/
+
+# Version complète du fichier communes (78 Mo, non utilisée dans le classeur Tableau)
+donnees_tableau/1_communes_qualite_eau.csv
+
+# Doublons et fichiers de travail
+captures.zip
+Prompts_Presentation_Poster.md
+
+# Fichiers temporaires
+.DS_Store
+~$*
+*.aux
+*.log
+*.toc
+*.out
