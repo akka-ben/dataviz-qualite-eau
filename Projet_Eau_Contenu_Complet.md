@@ -8,7 +8,7 @@ https://public.tableau.com/app/profile/mohammed.benakka.ouayad/viz/Qualitdeleaud
 
 (Le lien qui se termine par `/Macommune` ouvre directement le tableau de bord citoyen.)
 
-**Groupe :** _[Noms et prénoms à compléter]_ — **Cours :** _[à compléter]_ — **Enseignant :** _[à compléter]_ — **Date :** _[à compléter]_
+**Groupe :** Mohammed BENAKKA OUAYAD, Hajar BITARI, Aya SINDEL — **Cours :** _[à compléter]_ — **Enseignant :** _[à compléter]_ — **Date :** _[à compléter]_
 
 ---
 
@@ -77,7 +77,7 @@ Les données brutes ont été transformées en **6 fichiers CSV** (dossier `proj
 | `1_communes…` (version complète) | commune × famille × année | idem 1b | archive, non utilisé dans le classeur |
 | `1b_communes_2025_leger.csv` | commune × famille de polluant (2025) | code_insee, commune, code_dept, departement, region, famille, population, nb_prelevements, nb_prelevements_depassement, ratio_max_limite, commune_touchee (0/1), latitude, longitude | Carte communes, Fiche commune, KPI population exposée |
 | `2_departements_synthese.csv` | département × famille × année | code_dept, departement, region, famille, annee, nb_communes_controlees, nb_communes_touchees, nb_prelevements_communes, nb_prelevements_depassement_communes, population_controlee, population_exposee | Évolution par famille, Carte de chaleur |
-| `3_prelevements_conformite.csv` | département × mois | code_dept, departement, region, annee, mois, date_mois, nb_prelevements, nb_non_conformes, nb_non_conformes_bacterio, nb_non_conformes_chimie | Évolution conformité, KPI prélèvements, KPI conformité |
+| `3_prelevements_conformite.csv` | département × mois | code_dept, departement, region, annee, mois, date_mois, nb_prelevements, nb_non_conformes, nb_non_conformes_bacterio, nb_non_conformes_chimique | Évolution conformité, KPI prélèvements, KPI conformité |
 | `4_substances.csv` | substance × année | substance, code_parametre, famille, limite_qualite, annee, nb_analyses, nb_depassements | Feuille Substances |
 | `5_score_priorite_departements.csv` | département × année | code_dept, departement, region, annee, population_dept, risque_bacteries_pct, risque_nitrates_pct, risque_pesticides_pct, risque_pfas_pct, risque_autres_pct, couverture_pfas_pct, score_priorite, rang, latitude, longitude | Carte départements, Top 10 |
 
@@ -130,8 +130,8 @@ score = 0,30 × risque bactéries
 
 - Chaque **risque** est un pourcentage (part des prélèvements ou de la population touchés pour cette famille dans le département).
 - **Pourquoi 30 % pour les bactéries ?** Ce sont les seules qui rendent malade **tout de suite** ; une contamination bactérienne demande une action immédiate.
-- **Pourquoi seulement 10 % pour « autres » ?** Ce groupe mélange des paramètres souvent de confort (turbidité, couleur) moins graves pour la santé.
-- **Pourquoi ces poids sont discutables ?** C'est un **choix de décideur**, pas une vérité scientifique. Le projet prévoit (bonus) un **paramètre** dans Tableau pour que le décideur change lui-même les poids et voie le classement évoluer.
+- **Pourquoi seulement 10 % pour « autres » ?** Groupe très hétérogène, de la turbidité à des métaux comme le plomb et l'arsenic. C'est un choix discutable.
+- **Pourquoi ces poids sont discutables ?** C'est un **choix de décideur**, pas une vérité scientifique. Amélioration possible : un **paramètre** Tableau pour changer les poids (à confirmer dans le classeur).
 
 **Le rang** : 1 = département le plus prioritaire.
 
@@ -286,18 +286,18 @@ Les fichiers donnent surtout des **comptes**. Un compte seul ne permet pas de co
 | 2023 | 5,6 % | 94,4 % |
 | 2024 | 5,8 % | 94,2 % |
 | 2025 | **4,5 %** | **95,5 %** |
-| 2026 | 4,6 % | 95,4 % *(année en cours : données possiblement partielles)* |
+| 2026 | 4,5 % | 95,5 % *(année en cours : données possiblement partielles)* |
 
-**Lecture :** légère dégradation de 2021 à 2024, puis nette amélioration en 2025.
+**Lecture :** hausse légère jusqu'en 2024, puis baisse en 2025. Environ trois quarts de cette baisse viennent du métabolite R471811, classé non pertinent par l'Anses en avril 2024 : sans les 2 727 prélèvements non conformes à cause de lui seul, 2024 serait à 4,84 %.
 
 ### 10.3 Évolution du taux de dépassement par famille (≈)
 
 | Famille | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 |
 |---|---|---|---|---|---|---|
-| **Pesticides** | 14,7 % | 15,2 % | 18,1 % | 18,2 % | 12,2 % | 16,5 % |
-| Autres substances | 3,7 % | 3,6 % | 1,5 % | 1,6 % | 2,0 % | 2,1 % |
-| Bactéries | < 0,5 % | < 0,5 % | < 0,5 % | < 0,5 % | < 0,5 % | < 0,5 % |
-| Nitrates | < 0,5 % | < 0,5 % | < 0,5 % | < 0,5 % | < 0,5 % | < 0,5 % |
+| **Pesticides** | 15,8 % | 16,9 % | 18,0 % | 18,5 % | 13,1 % | 17,5 % |
+| Autres substances | 3,9 % | 3,4 % | 2,8 % | 2,7 % | 2,7 % | 2,9 % |
+| Bactéries | 1,8 % | 1,8 % | 2,0 % | 1,9 % | 1,7 % | 1,7 % |
+| Nitrates | 1,3 % | 1,1 % | 1,1 % | 1,4 % | 1,3 % | 0,8 % |
 | PFAS | *exclus du graphique : presque pas mesurés avant 2025* | | | | | |
 
 **Lecture :** les **pesticides** sont, de très loin, la famille qui dépasse le plus, chaque année.
@@ -317,35 +317,37 @@ Les fichiers donnent surtout des **comptes**. Un compte seul ne permet pas de co
 | 9 | Guyane | Guyane | 3,87 |
 | 10 | Seine-Maritime | Normandie | 3,30 |
 
-**Lecture :** 5 départements sur 10 sont dans les **Hauts-de-France**, 3 en **Normandie**. Ce sont des zones de **grandes cultures** (céréales, betteraves), d'où l'importance des pesticides. La **Guyane** est la seule exception, avec un profil différent (« autres substances » et bactéries). Le score 2025 va de 0,01 à 11,58.
+**Lecture :** 5 départements sur 10 sont dans les **Hauts-de-France**, 3 en **Normandie**. La **Guyane** est la seule exception, avec un profil différent (« autres substances » et bactéries). Le score 2025 va de 0,01 à 11,58.
+
+> Chiffres du tableau ci-dessous recalculés avec un comptage distinct des prélèvements.
 
 ### 10.5 Carte de chaleur : taux de dépassement par région et par famille (2025)
 
 | Région | Autres | Bactéries | Nitrates | **Pesticides** | PFAS |
 |---|---|---|---|---|---|
-| **Hauts-de-France** | 1,0 % | 0,1 % | 3,5 % | **46,4 %** | 0,9 % |
-| **Normandie** | 0,2 % | 0,3 % | 0,6 % | **29,7 %** | 0,3 % |
-| **Grand Est** | 1,2 % | 1,0 % | 2,3 % | **16,2 %** | **6,5 %** |
-| Centre-Val de Loire | 2,4 % | 0,2 % | 1,2 % | 12,8 % | 0,3 % |
-| Île-de-France | 0,3 % | 0,0 % | 0,2 % | 12,4 % | 0,1 % |
-| Bourgogne-Franche-Comté | 3,3 % | 0,6 % | 0,6 % | 4,9 % | 1,8 % |
-| Occitanie | 4,9 % | 0,8 % | 0,1 % | 2,1 % | 0,6 % |
-| Nouvelle-Aquitaine | 2,1 % | 0,3 % | 0,0 % | 1,8 % | 0,4 % |
-| Auvergne-Rhône-Alpes | 1,5 % | 0,9 % | 0,1 % | 0,4 % | 3,0 % |
-| Provence-Alpes-Côte d'Azur | 1,2 % | 1,5 % | 0,0 % | 0,2 % | 1,5 % |
-| Bretagne | 0,5 % | 0,0 % | 0,0 % | 0,5 % | 0,1 % |
-| Pays de la Loire | 0,7 % | 0,0 % | 0,0 % | 0,0 % | 0,0 % |
-| Corse | 7,4 % | **6,8 %** | 0,1 % | 0,0 % | — |
-| **Guyane** | **27,1 %** | 4,5 % | 0,0 % | 5,3 % | — |
-| Mayotte | 9,7 % | 2,4 % | 0,0 % | 0,0 % | — |
-| Guadeloupe | 9,0 % | 0,8 % | 0,0 % | 0,0 % | — |
-| Martinique | 2,4 % | 0,8 % | 0,0 % | 0,0 % | — |
-| La Réunion | 2,3 % | 2,5 % | 0,0 % | 0,0 % | 0,0 % |
+| Hauts-de-France | 2,0 % | 0,2 % | 6,5 % | 52,2 % | 0,8 % |
+| Normandie | 0,4 % | 0,3 % | 0,4 % | 27,3 % | 1,5 % |
+| Grand Est | 2,1 % | 2,2 % | 4,3 % | 21,6 % | 6,8 % |
+| Île-de-France | 0,3 % | 0,0 % | 0,4 % | 16,2 % | 0,6 % |
+| Centre-Val de Loire | 2,2 % | 0,4 % | 2,8 % | 14,4 % | 0,3 % |
+| Bourgogne-Franche-Comté | 5,6 % | 1,7 % | 1,6 % | 5,5 % | 1,1 % |
+| Guyane | 25,4 % | 5,6 % | 0,0 % | 3,2 % | n.m. |
+| Occitanie | 4,4 % | 2,5 % | 0,2 % | 2,5 % | 3,1 % |
+| Nouvelle-Aquitaine | 3,1 % | 0,7 % | 0,0 % | 1,5 % | 0,3 % |
+| Bretagne | 0,4 % | 0,1 % | 0,0 % | 0,5 % | 0,3 % |
+| Provence-Alpes-Côte d'Azur | 1,9 % | 2,8 % | 0,0 % | 0,4 % | 2,0 % |
+| Auvergne-Rhône-Alpes | 2,4 % | 3,4 % | 0,1 % | 0,4 % | 2,3 % |
+| Mayotte | 7,9 % | 2,1 % | 0,1 % | 0,0 % | n.m. |
+| Martinique | 4,1 % | 1,5 % | 0,0 % | 0,0 % | n.m. |
+| Guadeloupe | 9,9 % | 0,7 % | 0,0 % | 0,0 % | n.m. |
+| Pays de la Loire | 0,6 % | 0,0 % | 0,1 % | 0,0 % | 0,0 % |
+| Corse | 8,8 % | 10,1 % | 0,1 % | 0,0 % | n.m. |
+| La Réunion | 2,4 % | 2,5 % | 0,0 % | 0,0 % | 0,0 % |
 
 **Lecture :**
-- **Pesticides** : un problème du **nord de la France** (Hauts-de-France presque 1 prélèvement sur 2 en dépassement, Normandie, Grand Est, Centre, Île-de-France).
+- **Pesticides** : un problème du **nord de la France** (Hauts-de-France un peu plus d'un prélèvement analysé sur 2 en dépassement, Normandie, Grand Est, Centre, Île-de-France).
 - **Bactéries** : un problème de **Corse et d'outre-mer** (réseaux plus petits, climat, traitement).
-- **PFAS** : premier signal en **Grand Est** et **Auvergne-Rhône-Alpes** (zones industrielles, vallée de la chimie au sud de Lyon).
+- **PFAS** : premier signal en **Grand Est** (6,8 %), **Occitanie** (3,1 %) et **Auvergne-Rhône-Alpes** (2,3 %).
 - **Outre-mer** : profil « autres substances » (turbidité, etc.), surtout en Guyane.
 
 ### 10.6 Les 10 substances qui dépassent le plus (2025, ≈ nombre de dépassements)
@@ -364,8 +366,8 @@ Les fichiers donnent surtout des **comptes**. Un compte seul ne permet pas de co
 | 10 | Chlorure de vinyle monomère | Autres | ≈ 400 |
 
 **Lecture :** les dépassements de pesticides viennent surtout de **métabolites** (produits de dégradation) de molécules souvent **interdites depuis longtemps** :
-- **chloridazone** : herbicide de la betterave, interdit en 2020 ;
-- **chlorothalonil** : fongicide, interdit en 2020 ;
+- **chloridazone** : herbicide utilisé surtout sur la betterave jusqu'à fin 2020 ;
+- **chlorothalonil** : fongicide utilisable jusqu'en mai 2020 ;
 - **atrazine** : herbicide du maïs, interdit en 2003.
 
 Ils persistent des années dans les nappes : c'est une **pollution héritée du passé**.
@@ -378,7 +380,7 @@ Ils persistent des années dans les nappes : c'est une **pollution héritée du 
 
 1. **L'eau du robinet est globalement de bonne qualité** : plus de 94 % des prélèvements sont conformes chaque année (95,5 % en 2025).
 2. **Les pesticides sont le problème n°1**, loin devant les bactéries et les nitrates : 5 954 communes et 15,8 millions d'habitants concernés en 2025.
-3. **Le problème est concentré géographiquement** dans le nord de la France (Hauts-de-France, Normandie, Grand Est) : zones de grandes cultures.
+3. **Le problème est concentré géographiquement** dans le nord de la France (Hauts-de-France, Normandie, Grand Est).
 4. **C'est en grande partie une pollution héritée** : des métabolites de pesticides interdits depuis des années.
 5. **Les PFAS sont le prochain enjeu** : 172 communes au-dessus de la nouvelle limite européenne, avec des mesures encore récentes.
 
@@ -396,11 +398,12 @@ Ils persistent des années dans les nappes : c'est une **pollution héritée du 
 
 ## 12. Les limites et les points de vigilance
 
-- **Score de priorité = choix de pondération.** D'autres poids donneraient un autre classement. D'où l'intérêt d'un paramètre modifiable par le décideur.
+- **Score de priorité = choix de pondération.** D'autres poids donneraient un autre classement.
 - **PFAS :** très peu mesurés avant 2025. Les comparer dans le temps n'a pas de sens, d'où leur exclusion de la courbe d'évolution.
 - **2026 :** année en cours, données probablement **incomplètes**.
 - **Dépassement ≠ danger immédiat.** Une limite de qualité est une valeur de précaution ; un dépassement de pesticide n'entraîne pas forcément une restriction de consommation.
-- **Lignes « Null »** : quelques lignes n'ont pas de département ou de région rattachés (codes non reconnus). Elles apparaissent dans la carte de chaleur et le Top 10 « toutes années ».
+- **Lignes « Null »** : elles venaient de Saint-Barthélemy et Saint-Martin, désormais regroupés avec la Guadeloupe dans le fichier 2 (même ARS).
+- **Limites modifiées :** ESA métolachlore (2023) et R471811 (2025) n'ont plus de limite dans nos données ; les années ne sont pas strictement comparables.
 - **Carte :** les départements et régions d'outre-mer élargissent la vue ; il faut zoomer sur la métropole.
 - **Commune touchée** = au moins **un** dépassement dans l'année. Une commune avec un seul dépassement ponctuel compte autant qu'une commune avec des dépassements permanents.
 - **Population exposée** = population de toute la commune touchée, même si une partie seulement du réseau est concernée. C'est un **majorant**.
@@ -441,7 +444,7 @@ Ils persistent des années dans les nappes : c'est une **pollution héritée du 
 ### 14.2 Questions probables du jury (et réponses)
 
 **« Pourquoi ces poids dans le score ? »**
-Les bactéries ont un effet immédiat sur la santé, d'où 30 %. Les autres familles ont des effets chroniques, d'où 20 %. « Autres » regroupe surtout des paramètres de confort, d'où 10 %. C'est un choix discutable, et c'est pour ça qu'on propose un paramètre pour que le décideur le change.
+Les bactéries ont un effet immédiat sur la santé, d'où 30 %. Les autres familles ont des effets chroniques, d'où 20 %. « Autres » est une famille hétérogène, d'où 10 %, mais c'est discutable car elle contient aussi des métaux.
 
 **« Pourquoi avoir mis le filtre Année en contexte ? »**
 Sans contexte, Tableau calcule le Top 10 sur toutes les années, puis filtre 2025 : le classement serait faux. Le filtre de contexte s'applique **avant** le Top N.
@@ -456,7 +459,7 @@ Ils n'étaient presque pas mesurés avant 2025. La courbe montrerait une fausse 
 Pas forcément. Les limites sont des seuils de précaution. Les ARS évaluent ensuite le risque et peuvent restreindre la consommation si nécessaire.
 
 **« Pourquoi les pesticides sont surtout dans le Nord ? »**
-Ce sont des zones de grandes cultures (betterave, céréales). Les dépassements viennent surtout de métabolites d'herbicides et de fongicides (chloridazone, chlorothalonil) qui persistent dans les nappes même après l'interdiction des molécules.
+La chloridazone était surtout utilisée sur la betterave (ARS Hauts-de-France), mais nos données ne prouvent pas la cause. Les dépassements viennent surtout de métabolites d'herbicides et de fongicides (chloridazone, chlorothalonil) qui persistent dans les nappes même après l'interdiction des molécules.
 
 **« Quelle différence entre taux de non-conformité et taux de dépassement ? »**
 Le taux de non-conformité (source 3) porte sur **tous** les prélèvements d'un département et d'un mois. Le taux de dépassement (source 2) est calculé **par famille** de polluant : il dit quelle famille pose problème.

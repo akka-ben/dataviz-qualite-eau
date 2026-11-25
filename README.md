@@ -36,4 +36,4 @@ Le rapport peut aussi être ouvert dans Overleaf en important le fichier `.tex` 
 
 ## Groupe
 
-[Nom Prénom], [Nom Prénom], [Nom Prénom], [Nom Prénom]
+Mohammed BENAKKA OUAYAD, Hajar BITARI, Aya SINDEL

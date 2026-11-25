@@ -111,7 +111,8 @@
 <!-- ======================= PAGE 1 ======================= -->
 <section class="page">
   <div class="titre">Que contient l'eau de votre robinet ?</div>
-  <div class="sous-titre">Qualité de l'eau potable en France, 2021–2026<span class="sep">·</span>Séminaire BI et Data Viz (Ismail Rebai)<span class="sep">·</span>Projet Tableau Public</div>
+  <div class="sous-titre">Qualité de l'eau potable en France, 2021–2026<span class="sep">·</span>Séminaire BI et Data Viz (Ismail Rebai)</div>
+  <div class="sous-titre">Mohammed BENAKKA OUAYAD · Hajar BITARI · Aya SINDEL</div>
   <div class="partie">Page 1 — Le problème et la méthode</div>
 
   <div class="encadre" style="margin-top:3mm">
@@ -133,7 +134,7 @@
     <div>
       <h2>1. Les données</h2>
       <p><b>Source :</b> ministère de la Santé, résultats du <b>contrôle sanitaire</b> de l'eau distribuée réalisé par les ARS, publiés commune par commune sur data.gouv.fr. Population et coordonnées : Insee (geo.api.gouv.fr).</p>
-      <p><b>Période :</b> 2021 à 2026 (2026 incomplet, janvier à octobre). <b>Volume :</b> ≈ <b>1,6 million de prélèvements</b> et plusieurs millions d'analyses ; 34 817 communes contrôlées en 2025.</p>
+      <p><b>Période :</b> 2021 à 2026 (2026 incomplet, janvier à septembre). <b>Volume :</b> ≈ <b>1,6 million de prélèvements</b> et plusieurs millions d'analyses ; 34 807 communes contrôlées en 2025.</p>
       <p><b>Vocabulaire :</b> un <i>prélèvement</i> est un échantillon d'eau ; une <i>analyse</i> est la mesure d'un paramètre ; une <i>commune touchée</i> a au moins un dépassement de limite dans l'année.</p>
       <h3>Les 6 fichiers préparés pour Tableau</h3>
       <table>
@@ -180,8 +181,8 @@
           <div class="formule">score = 0,30 × bactéries + 0,20 × nitrates<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0,20 × pesticides + 0,20 × PFAS<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0,10 × autres</div>
           <p>Chaque <b>risque</b> = part de la population touchée, pondérée par le taux de dépassement de sa commune (%).</p>
           <ul class="compact">
-            <li><b>30 % bactéries :</b> seul risque immédiat. <b>20 %</b> pour les 3 risques chroniques. <b>10 % autres :</b> surtout du confort.</li>
-            <li>Rang 1 = le plus prioritaire ; score 2025 de 0,01 à 11,58. Les poids sont un <b>choix de décideur</b>, modifiable par un paramètre.</li>
+            <li><b>30 % bactéries :</b> seul risque immédiat. <b>20 %</b> pour les 3 risques chroniques. <b>10 % autres :</b> famille hétérogène.</li>
+            <li>Rang 1 = le plus prioritaire ; score 2025 de 0,01 à 11,58. Les poids sont un <b>choix de décideur</b>.</li>
           </ul>
         </div>
       </div>
@@ -221,30 +222,30 @@
       <div class="duo">
         <figure>
           <img src="captures/evolution_conformite.png" alt="Taux de non-conformité par année, de 5,45 % en 2021 à 4,51 % en 2025">
-          <figcaption><b>Non-conformité :</b> 5,5 % (2021) → 5,8 % (2024) → <b>4,5 % (2025)</b> ; 4,6 % en 2026 (partiel).</figcaption>
+          <figcaption><b>Non-conformité :</b> 5,5 % (2021) → 5,8 % (2024) → <b>4,5 % (2025)</b>, dont les 3/4 de la baisse dus au reclassement du R471811.</figcaption>
         </figure>
         <figure>
           <img src="captures/evolution_famille.png" alt="Taux de dépassement par famille : pesticides entre 12 et 18 %, les autres familles sous 4 %">
-          <figcaption><b>Pesticides :</b> 14,7 → 18,2 % (2024) → 12,2 % (2025) → 16,4 % (2026). Autres : 1,5–3,6 % ; bactéries et nitrates : 0,4–0,7 %. PFAS exclus.</figcaption>
+          <figcaption><b>Pesticides :</b> 13 à 18,5 %. Autres : 2,7–3,9 % ; bactéries 1,7–2,0 % ; nitrates 0,8–1,4 %. PFAS exclus.</figcaption>
         </figure>
       </div>
 
       <h2>7. Top 10 des départements prioritaires (2025)</h2>
       <figure>
         <img src="captures/top10.png" alt="Top 10 des départements par score : Somme 11,58, Marne 9,44, Aisne 9,24">
-        <figcaption><b>5 sur 10</b> en Hauts-de-France, 3 en Normandie (grandes cultures) ; la Guyane fait exception.</figcaption>
+        <figcaption><b>5 sur 10</b> en Hauts-de-France, 3 en Normandie ; la Guyane fait exception.</figcaption>
       </figure>
 
       <h2>8. Top 10 des substances (2025)</h2>
       <figure>
         <img src="poster_assets/top10_substances.png" alt="Substances avec le plus de dépassements en 2025, chloridazone desphényl en tête avec 4 448">
-        <figcaption>Analyses au-dessus de la limite. En tête : des <b>métabolites</b> de pesticides interdits (chloridazone et chlorothalonil en 2020, atrazine en 2003).</figcaption>
+        <figcaption>Analyses au-dessus de la limite. En tête : des <b>métabolites</b> de pesticides interdits (chloridazone et chlorothalonil : 2020 ; atrazine : 2003).</figcaption>
       </figure>
 
       <h2>11. Limites</h2>
       <ul class="compact">
         <li><b>Pondération :</b> d'autres poids changeraient le classement.</li>
-        <li><b>Données :</b> PFAS peu mesurés avant 2025 ; 2026 incomplet.</li>
+        <li><b>Données :</b> PFAS rares avant 2025 ; limites modifiées ; 2026 partiel.</li>
         <li><b>Dépassement ≠ danger :</b> seuils de précaution.</li>
         <li><b>Commune touchée</b> dès 1 dépassement (majorant).</li>
       </ul>
@@ -255,7 +256,7 @@
       <h2>9. Carte de chaleur : régions × familles (2025)</h2>
       <figure>
         <img src="captures/carte_chaleur.png" alt="Carte de chaleur du taux de dépassement par région et famille en 2025">
-        <figcaption>Taux de dépassement (0,4638 = 46,4 %). <b>Pesticides :</b> Hauts-de-France 46,4 %, Normandie 29,7 %, Grand Est 16,2 %. <b>Bactéries :</b> Corse 6,8 %, Guyane 4,5 %. <b>PFAS :</b> Grand Est 6,5 %, Auvergne-Rhône-Alpes 3,0 %. <b>Autres :</b> Guyane 27,1 %.</figcaption>
+        <figcaption>Taux de dépassement, prélèvements distincts (case vide : non mesuré).</figcaption>
       </figure>
 
       <div class="encadre" style="margin-top:2.6mm">
@@ -264,7 +265,7 @@
           <ol class="messages">
             <li><b>L'eau est globalement bonne :</b> plus de 94 % de prélèvements conformes chaque année, 95,5 % en 2025.</li>
             <li><b>Les pesticides sont le problème n°1 :</b> 5 954 communes et 15,8 millions d'habitants concernés en 2025.</li>
-            <li><b>Le problème est géographique :</b> Hauts-de-France, Normandie, Grand Est, zones de grandes cultures.</li>
+            <li><b>Le problème est géographique :</b> Hauts-de-France, Normandie, Grand Est.</li>
             <li><b>C'est une pollution héritée :</b> des métabolites de pesticides interdits depuis des années.</li>
             <li><b>Les PFAS sont le prochain enjeu :</b> 172 communes au-dessus de la nouvelle limite, mesures encore récentes.</li>
           </ol>
@@ -276,8 +277,8 @@
         <tr><th class="c">#</th><th>Action</th><th>Où</th></tr>
         <tr><td class="c">1</td><td>Traiter les métabolites de pesticides (charbon actif, interconnexion, dilution)</td><td>Somme, Marne, Aisne, Oise, Pas-de-Calais</td></tr>
         <tr><td class="c">2</td><td>Protéger les captages (aires d'alimentation, moins d'intrants)</td><td>Hauts-de-France, Normandie, Grand Est</td></tr>
-        <tr><td class="c">3</td><td>Renforcer la surveillance des PFAS et informer</td><td>Grand Est, Auvergne-Rhône-Alpes, 172 communes</td></tr>
-        <tr><td class="c">4</td><td>Améliorer le traitement bactériologique des petits réseaux</td><td>Corse, Guyane, Mayotte, Guadeloupe</td></tr>
+        <tr><td class="c">3</td><td>Renforcer la surveillance des PFAS et informer</td><td>Grand Est, Occitanie, Auvergne-Rhône-Alpes</td></tr>
+        <tr><td class="c">4</td><td>Améliorer le traitement bactériologique des petits réseaux</td><td>Corse, Guyane, petites communes</td></tr>
         <tr><td class="c">5</td><td>Informer les citoyens avec l'outil « Ma commune »</td><td>Partout</td></tr>
       </table>
     </div>
@@ -338,7 +339,7 @@
       <h2>16. Questions probables du jury</h2>
       <div class="qr">
         <p class="q"><b>Q :</b> Pourquoi ces poids dans le score ?</p>
-        <p class="r"><b>R :</b> Les bactéries rendent malade tout de suite (30 %) ; les risques chroniques comptent 20 % ; « autres » regroupe surtout du confort (10 %). C'est un choix discutable, d'où le paramètre modifiable.</p>
+        <p class="r"><b>R :</b> Les bactéries rendent malade tout de suite (30 %) ; les risques chroniques comptent 20 % ; « autres » est une famille hétérogène (10 %). C'est un choix discutable.</p>
         <p class="q"><b>Q :</b> Pourquoi le filtre Année est-il en contexte ?</p>
         <p class="r"><b>R :</b> Sans contexte, Tableau calcule le Top 10 sur toutes les années puis filtre 2025 : le classement serait faux.</p>
         <p class="q"><b>Q :</b> À quoi sert le FIXED ?</p>
@@ -348,7 +349,7 @@
         <p class="q"><b>Q :</b> Un dépassement, c'est dangereux ?</p>
         <p class="r"><b>R :</b> Pas forcément : les limites sont des seuils de précaution, et l'ARS évalue ensuite le risque.</p>
         <p class="q"><b>Q :</b> Pourquoi les pesticides surtout dans le Nord ?</p>
-        <p class="r"><b>R :</b> Zones de grandes cultures ; les métabolites d'herbicides et de fongicides persistent dans les nappes après l'interdiction.</p>
+        <p class="r"><b>R :</b> La chloridazone était surtout utilisée sur la betterave. Nos données montrent où, mais ne prouvent pas pourquoi.</p>
         <p class="q"><b>Q :</b> Non-conformité ou dépassement : quelle différence ?</p>
         <p class="r"><b>R :</b> La non-conformité porte sur tous les prélèvements ; le taux de dépassement est calculé par famille de polluant.</p>
       </div>

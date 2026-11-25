@@ -39,10 +39,9 @@
 \vspace{3cm}
 {\large Réalisé par :\par}
 \vspace{0.3cm}
-[Nom Prénom]\par
-[Nom Prénom]\par
-[Nom Prénom]\par
-[Nom Prénom]\par
+Mohammed BENAKKA OUAYAD\par
+Hajar BITARI\par
+Aya SINDEL\par
 \vfill
 {\large Novembre 2026\par}
 \end{titlepage}
@@ -90,7 +89,7 @@ Nous avons pensé le projet pour deux types d'utilisateurs. Le premier est le d�
 
 \subsection{Source}
 
-Les données proviennent du jeu « Résultats du contrôle sanitaire de l'eau distribuée commune par commune », publié par le ministère de la Santé sur data.gouv.fr sous Licence Ouverte. Nous avons utilisé les fichiers des années 2021 à 2026. L'année 2026 est incomplète : elle couvre les prélèvements de janvier à octobre. Pour placer les communes sur une carte et connaître leur population, nous avons ajouté le référentiel des communes de l'Insee (via l'API geo.api.gouv.fr).
+Les données proviennent du jeu « Résultats du contrôle sanitaire de l'eau distribuée commune par commune », publié par le ministère de la Santé sur data.gouv.fr sous Licence Ouverte. Nous avons utilisé les fichiers des années 2021 à 2026. L'année 2026 est incomplète : elle couvre les prélèvements de janvier à septembre. Pour placer les communes sur une carte et connaître leur population, nous avons ajouté le référentiel des communes de l'Insee (via l'API geo.api.gouv.fr).
 
 Chaque année est livrée sous forme d'une archive d'environ 230 à 310~Mo, soit 1,7~Go compressés pour les six années et plus de 11~Go une fois décompressés.
 
@@ -101,7 +100,7 @@ Chaque archive annuelle contient trois tables :
 \begin{itemize}
   \item la table \textbf{communes et réseaux}, qui indique quelle unité de distribution (réseau) alimente quelle commune ;
   \item la table des \textbf{prélèvements}, avec la date, le lieu, le réseau et la conclusion de conformité de chaque échantillon (environ 290~000 par an) ;
-  \item la table des \textbf{résultats d'analyses}, avec pour chaque prélèvement le paramètre mesuré, la valeur obtenue et la limite de qualité (environ 10 millions de lignes par an).
+  \item la table des \textbf{résultats d'analyses}, avec pour chaque prélèvement le paramètre mesuré, la valeur obtenue et la limite de qualité (environ 13 millions de lignes par an de 2021 à 2025).
 \end{itemize}
 
 Les prélèvements sont reliés aux résultats par le code du prélèvement, et aux communes par le code du réseau. Au total, nous avons traité 1~635~605 prélèvements sur la période.
@@ -149,7 +148,7 @@ Les fichiers bruts étaient beaucoup trop lourds pour être chargés tels quels 
   \item ajout de la latitude et de la longitude des communes et des départements pour les cartes.
 \end{enumerate}
 
-Un point a demandé une attention particulière : un même prélèvement peut être rattaché à plusieurs réseaux de distribution. Sans précaution, il aurait été compté plusieurs fois. Nous avons donc compté les prélèvements de manière distincte à chaque niveau d'agrégation. De la même façon, lorsqu'un paramètre était mesuré deux fois sur un même prélèvement (sur le terrain et en laboratoire), nous avons gardé la valeur la plus défavorable.
+Un point a demandé une attention particulière : un même prélèvement peut être rattaché à plusieurs réseaux de distribution. Sans précaution, il aurait été compté plusieurs fois. Nous avons donc compté les prélèvements de manière distincte : par commune pour les fichiers communaux, et par département gestionnaire pour la synthèse départementale, où chaque prélèvement n'est compté qu'une seule fois. De la même façon, lorsqu'un paramètre était mesuré deux fois sur un même prélèvement (sur le terrain et en laboratoire), nous avons gardé la valeur la plus défavorable.
 
 \subsection{Fichiers produits}
 
@@ -192,7 +191,7 @@ Année & Prélèvements & Non conformes & Taux de non-conformité \\
 2023 & 292~739 & 16~451 & 5,62~\% \\
 2024 & 291~616 & 16~835 & 5,77~\% \\
 2025 & 295~134 & 13~296 & 4,51~\% \\
-2026 (janvier à octobre) & 179~794 & 8~173 & 4,55~\% \\
+2026 (janvier à septembre) & 179~794 & 8~173 & 4,55~\% \\
 \bottomrule
 \end{tabular}
 \caption{Volume de prélèvements et non-conformité par année}
@@ -204,7 +203,7 @@ Cette analyse a fait apparaître un point important pour la suite : les PFAS n'�
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{couverture_pfas.png}
-\caption{Nombre de communes où les PFAS ont été mesurés (2026 : janvier à octobre)}
+\caption{Nombre de communes où les PFAS ont été mesurés (2026 : janvier à septembre)}
 \label{fig:pfas}
 \end{figure}
 
@@ -241,14 +240,14 @@ Bactéries & 30~\% & Seul risque immédiat pour la santé, qui demande une actio
 Nitrates & 20~\% & Risque chronique, surtout pour les nourrissons \\
 Pesticides & 20~\% & Exposition chronique \\
 PFAS & 20~\% & Substances très persistantes \\
-Autres substances & 10~\% & Surtout des paramètres de confort (turbidité, couleur) \\
+Autres substances & 10~\% & Famille très hétérogène, de la turbidité à des métaux comme le plomb ; poids plus faible par choix \\
 \bottomrule
 \end{tabular}
 \caption{Poids retenus pour le score de priorité}
 \label{tab:poids}
 \end{table}
 
-Ces poids sont un choix de décideur et non une vérité scientifique. Nous avons donc prévu dans Tableau un paramètre qui permet de les modifier et de voir le classement évoluer. Le rang 1 correspond au département le plus prioritaire. En 2025, le score varie de 0,01 à 11,58.
+Ces poids sont un choix de décideur et non une vérité scientifique. Une amélioration possible serait d'ajouter dans Tableau un paramètre pour les modifier et voir le classement évoluer. Le rang 1 correspond au département le plus prioritaire. En 2025, le score varie de 0,01 à 11,58.
 
 % ------------------------------------------------------------------
 \section{Réalisation sous Tableau}
@@ -297,7 +296,7 @@ Le tableau de bord « Vue France » (figure~\ref{fig:vuefrance}) s'adresse au d�
 \label{fig:vuefrance}
 \end{figure}
 
-Le tableau de bord « Ma commune » (figure~\ref{fig:macommune}) s'adresse au citoyen. Il suffit de taper le nom de sa commune pour voir ses prélèvements et ses dépassements par famille, ainsi que sa position sur la carte. Un filtre permet de passer d'une famille de polluants à une autre. Lorsque le champ est vide, toute la France est affichée.
+Le tableau de bord « Ma commune » (figure~\ref{fig:macommune}) s'adresse au citoyen. Il suffit de taper le nom de sa commune pour voir ses prélèvements, ses dépassements et son taux de dépassement par famille, ainsi que sa position sur la carte. Le département est ajouté au nom, car 3~660 communes partagent leur nom avec une autre. Le taux n'apparaît que si une seule commune est choisie. Un filtre permet de passer d'une famille de polluants à une autre. Lorsque le champ est vide, toute la France est affichée.
 
 \begin{figure}[H]
 \centering
@@ -316,7 +315,7 @@ Le classeur a été publié sur Tableau Public, ce qui permet de le partager par
 
 \subsection{Une eau globalement conforme}
 
-Le premier résultat est plutôt rassurant : plus de 94~\% des prélèvements sont conformes chaque année (figure~\ref{fig:conformite}). La non-conformité augmente légèrement entre 2021 (5,45~\%) et 2024 (5,77~\%), puis baisse nettement en 2025 (4,51~\%), soit 95,5~\% de prélèvements conformes. Les non-conformités chimiques sont près de deux fois plus fréquentes que les non-conformités bactériologiques : 8~742 contre 4~659 en 2025.
+Le premier résultat est plutôt rassurant : plus de 94~\% des prélèvements sont conformes chaque année (figure~\ref{fig:conformite}). La non-conformité augmente légèrement entre 2021 (5,45~\%) et 2024 (5,77~\%), puis passe à 4,51~\% en 2025, soit 95,5~\% de prélèvements conformes. Cette baisse ne doit pas être lue comme une amélioration équivalente de l'eau : en avril 2024, l'Anses a classé « non pertinent » le métabolite R471811 du chlorothalonil, qui n'a plus de limite de qualité dans nos données de 2025. En 2024, 2~727 prélèvements étaient non conformes uniquement à cause de lui. Sans eux, le taux de 2024 aurait été de 4,84~\%, donc environ les trois quarts de la baisse s'expliquent par ce changement. Les non-conformités chimiques sont près de deux fois plus fréquentes que les non-conformités bactériologiques : 8~742 contre 4~659 en 2025.
 
 \begin{figure}[H]
 \centering
@@ -327,7 +326,7 @@ Le premier résultat est plutôt rassurant : plus de 94~\% des prélèvements so
 
 \subsection{Les pesticides, premier problème}
 
-La moyenne nationale cache cependant de fortes différences selon les familles et les territoires. Les pesticides sont de loin la famille qui dépasse le plus souvent : chaque année, entre 12 et 18~\% des prélèvements analysés pour les pesticides dépassent au moins une limite (tableau~\ref{tab:familles-evol} et figure~\ref{fig:famille}). Les autres familles restent sous 4~\%, et les bactéries et les nitrates sous 1~\%.
+La moyenne nationale cache cependant de fortes différences selon les familles et les territoires. Les pesticides sont de loin la famille qui dépasse le plus souvent : chaque année, entre 13 et 18,5~\% des prélèvements analysés pour les pesticides dépassent au moins une limite (tableau~\ref{tab:familles-evol} et figure~\ref{fig:famille}). Les autres familles restent sous 4~\%, et les bactéries et les nitrates autour de 1 à 2~\%.
 
 \begin{table}[H]
 \centering
@@ -336,10 +335,10 @@ La moyenne nationale cache cependant de fortes différences selon les familles e
 \toprule
 Famille & 2021 & 2022 & 2023 & 2024 & 2025 & 2026 \\
 \midrule
-Pesticides & 14,7~\% & 15,2~\% & 18,2~\% & 18,2~\% & 12,2~\% & 16,4~\% \\
-Autres substances & 3,6~\% & 3,6~\% & 1,5~\% & 1,6~\% & 2,0~\% & 2,1~\% \\
-Bactéries & 0,5~\% & 0,5~\% & 0,6~\% & 0,6~\% & 0,5~\% & 0,7~\% \\
-Nitrates & 0,5~\% & 0,4~\% & 0,4~\% & 0,6~\% & 0,7~\% & 0,4~\% \\
+Pesticides & 15,8~\% & 16,9~\% & 18,0~\% & 18,5~\% & 13,1~\% & 17,5~\% \\
+Autres substances & 3,9~\% & 3,4~\% & 2,8~\% & 2,7~\% & 2,7~\% & 2,9~\% \\
+Bactéries & 1,8~\% & 1,8~\% & 2,0~\% & 1,9~\% & 1,7~\% & 1,7~\% \\
+Nitrates & 1,3~\% & 1,1~\% & 1,1~\% & 1,4~\% & 1,3~\% & 0,8~\% \\
 \bottomrule
 \end{tabular}
 \caption{Taux de dépassement par famille et par année (PFAS exclus)}
@@ -348,12 +347,14 @@ Nitrates & 0,5~\% & 0,4~\% & 0,4~\% & 0,6~\% & 0,7~\% & 0,4~\% \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{evolution_famille.png}
+\includegraphics[width=0.6\textwidth]{evolution_famille.png}
 \caption{Évolution du taux de dépassement par famille}
 \label{fig:famille}
 \end{figure}
 
-En 2025, 5~954 communes ont connu au moins un dépassement pour les pesticides. Elles comptent 15,8 millions d'habitants (tableau~\ref{tab:population}). La carte des communes (figure~\ref{fig:cartepest}) montre que ces communes se concentrent nettement dans le nord de la France : Hauts-de-France, Normandie et Grand Est, c'est-à-dire des régions de grandes cultures.
+La liste des molécules soumises à une limite change aussi d'une année à l'autre. Si l'on retire de toutes les années les deux principales molécules qui ont perdu leur limite (ESA métolachlore et R471811), le taux des pesticides est de 9,1~\% en 2021, 13,6~\% en 2023, 13,2~\% en 2024 et 13,1~\% en 2025. Il n'y a donc pas de baisse nette.
+
+En 2025, 5~954 communes ont connu au moins un dépassement pour les pesticides. Elles comptent 15,8 millions d'habitants (tableau~\ref{tab:population}). La carte des communes (figure~\ref{fig:cartepest}) montre que ces communes se concentrent nettement dans le nord de la France : Hauts-de-France, Normandie et Grand Est. Cette répartition est cohérente avec l'origine agricole de ces substances, mais nos données ne permettent pas à elles seules de le démontrer.
 
 \begin{table}[H]
 \centering
@@ -375,36 +376,36 @@ PFAS & 172 & 926~954 \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.55\textwidth]{carte_pesticides_2025.png}
-\caption{Communes avec au moins un dépassement pesticides en 2025 (en rouge)}
+\includegraphics[width=0.75\textwidth]{carte_communes.png}
+\caption{Communes avec au moins un dépassement pesticides en 2025, en rouge}
 \label{fig:cartepest}
 \end{figure}
 
 \subsection{Une pollution en grande partie héritée}
 
-Le classement des substances (figure~\ref{fig:substances}) montre que les dépassements de pesticides viennent surtout de métabolites, c'est-à-dire de produits de dégradation. La chloridazone desphényl arrive en tête avec 4~448 dépassements en 2025. Elle provient d'un herbicide utilisé sur la betterave et interdit en 2020. On retrouve aussi un métabolite du chlorothalonil, un fongicide interdit en 2020, et l'atrazine déséthyl, issue d'un herbicide du maïs interdit en 2003. Ces molécules persistent pendant des années dans les nappes : il s'agit donc en grande partie d'une pollution héritée du passé. Les bactéries \textit{E. coli} et entérocoques suivent, avec environ 3~000 dépassements chacune.
+Le classement des substances (figure~\ref{fig:substances}) montre que les dépassements de pesticides viennent surtout de métabolites, c'est-à-dire de produits de dégradation. La chloridazone desphényl arrive en tête avec 4~448 dépassements en 2025. Elle provient d'un herbicide utilisé surtout sur la betterave jusqu'à fin 2020. On retrouve aussi un métabolite du chlorothalonil, un fongicide utilisable en France jusqu'en mai 2020, et l'atrazine déséthyl, issue d'un herbicide du maïs interdit en 2003. Ces molécules persistent pendant des années dans les nappes : il s'agit donc en grande partie d'une pollution héritée du passé. Les bactéries \textit{E. coli} et entérocoques suivent, avec environ 3~000 dépassements chacune.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{substances.png}
+\includegraphics[width=0.95\textwidth]{substances.png}
 \caption{Les dix substances avec le plus de dépassements en 2025}
 \label{fig:substances}
 \end{figure}
 
 \subsection{Chaque région a son problème}
 
-La carte de chaleur (figure~\ref{fig:chaleur}) croise les régions et les familles de polluants. Elle montre que les problèmes ne sont pas les mêmes partout. Les pesticides dominent dans le nord : près d'un prélèvement sur deux est en dépassement en Hauts-de-France (46,4~\%), contre 29,7~\% en Normandie et 16,2~\% dans le Grand Est. Les bactéries posent surtout problème en Corse (6,8~\%) et en outre-mer, où les réseaux sont souvent plus petits. La famille « autres substances » est très présente en Guyane (27,1~\%), notamment à cause de la turbidité.
+La carte de chaleur (figure~\ref{fig:chaleur}) croise les régions et les familles de polluants. Elle montre que les problèmes ne sont pas les mêmes partout. Les pesticides dominent dans le nord : un peu plus d'un prélèvement analysé sur deux est en dépassement en Hauts-de-France (52,2~\%), contre 27,3~\% en Normandie et 21,6~\% dans le Grand Est. Les bactéries posent surtout problème en Corse (10,1~\%) et en Guyane (5,6~\%). Au niveau des communes, le taux est de 0,83~\% dans celles de moins de 2~000 habitants, contre 0,10~\% au-delà de 10~000. La famille « autres substances » est très présente en Guyane (25,4~\%), surtout à cause de la turbidité et des trihalométhanes.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{carte_chaleur.png}
-\caption{Taux de dépassement par région et par famille en 2025 (0,4638 = 46,4~\%)}
+\includegraphics[width=0.7\textwidth]{carte_chaleur.png}
+\caption{Taux de dépassement par région et par famille en 2025 (case vide : non mesuré)}
 \label{fig:chaleur}
 \end{figure}
 
 \subsection{Les PFAS, un enjeu émergent}
 
-Avec la nouvelle limite européenne de 0,1~µg/L pour la somme de 20 PFAS, 172 communes étaient au-dessus de ce seuil en 2025, pour une population d'environ 927~000 habitants. Les plus grandes sont Besançon, Cherbourg-en-Cotentin (jusqu'à 4,6 fois la limite), Chambéry et Narbonne. Les premiers signaux apparaissent surtout dans le Grand Est (6,5~\% de dépassement) et en Auvergne-Rhône-Alpes (3,0~\%), deux régions industrielles. Ces mesures étant récentes, la situation devra être suivie dans les prochaines années.
+Avec la nouvelle limite européenne de 0,1~µg/L pour la somme de 20 PFAS, 172 communes ont eu en 2025 au moins une mesure au-dessus de ce seuil, que nous avons appliqué à toutes les années, pour une population d'environ 927~000 habitants. Les plus grandes sont Besançon, Cherbourg-en-Cotentin (jusqu'à 4,6 fois la limite), Chambéry et Narbonne. Les premiers signaux apparaissent surtout dans le Grand Est (6,8~\% de dépassement), en Occitanie (3,1~\%) et en Auvergne-Rhône-Alpes (2,3~\%). Ces mesures étant récentes, la situation devra être suivie dans les prochaines années.
 
 \subsection{Les départements prioritaires}
 
@@ -446,7 +447,7 @@ Rang & Département & Région & Score \\
 
 \subsection{Ce qu'il faut retenir}
 
-Nos résultats peuvent se résumer en cinq points. L'eau du robinet est globalement de bonne qualité, avec 95,5~\% de prélèvements conformes en 2025. Les pesticides restent pourtant le premier problème : 5~954 communes et 15,8 millions d'habitants sont concernés. Ce problème est très concentré dans le nord de la France, dans les régions de grandes cultures. Il s'agit en grande partie d'une pollution héritée, due à des molécules interdites depuis plusieurs années. Enfin, les PFAS apparaissent comme le prochain enjeu, avec 172 communes au-dessus de la nouvelle limite.
+Nos résultats peuvent se résumer en cinq points. L'eau du robinet est globalement de bonne qualité, avec 95,5~\% de prélèvements conformes en 2025. Les pesticides restent pourtant le premier problème : 5~954 communes et 15,8 millions d'habitants sont concernés. Ce problème est très concentré dans le nord de la France. Les substances les plus souvent en cause viennent en grande partie de molécules interdites depuis plusieurs années. Enfin, les PFAS apparaissent comme le prochain enjeu, avec 172 communes au-dessus de la nouvelle limite.
 
 \subsection{Recommandations pour une ARS}
 
@@ -461,8 +462,8 @@ Priorité & Action & Territoires \\
 \midrule
 1 & Traiter les métabolites de pesticides (filtration sur charbon actif, interconnexion de réseaux, dilution) & Somme, Marne, Aisne, Oise, Pas-de-Calais \\
 2 & Protéger les captages (aires d'alimentation, réduction des intrants agricoles) & Hauts-de-France, Normandie, Grand Est \\
-3 & Renforcer la surveillance des PFAS et informer la population & Grand Est, Auvergne-Rhône-Alpes, 172 communes \\
-4 & Améliorer le traitement bactériologique des petits réseaux & Corse, Guyane, Mayotte, Guadeloupe \\
+3 & Renforcer la surveillance des PFAS et informer la population & Grand Est, Occitanie, Auvergne-Rhône-Alpes \\
+4 & Améliorer le traitement bactériologique des petits réseaux & Corse, Guyane, petites communes \\
 5 & Informer les citoyens avec l'outil « Ma commune » & Toute la France \\
 \bottomrule
 \end{tabular}
@@ -481,12 +482,14 @@ Sans visualisation, ces informations sont enfermées dans plus de 11~Go de fichi
 Notre travail comporte plusieurs limites qu'il faut garder en tête pour interpréter les résultats.
 
 \begin{itemize}
-  \item \textbf{Le choix des poids.} Le score de priorité dépend des poids retenus. D'autres pondérations donneraient un classement différent, ce qui justifie le paramètre modifiable dans Tableau.
+  \item \textbf{Le choix des poids.} Le score de priorité dépend des poids retenus. D'autres pondérations donneraient un classement différent, en particulier le poids de 10~\% donné aux autres substances, qui comprennent aussi des métaux comme le plomb et l'arsenic.
   \item \textbf{La couverture des PFAS.} Les PFAS étaient très peu mesurés avant 2025. Leur évolution dans le temps ne peut donc pas être interprétée.
-  \item \textbf{L'année 2026.} Les données de 2026 s'arrêtent en octobre et sont donc incomplètes.
+  \item \textbf{L'année 2026.} Les données de 2026 s'arrêtent au 30~septembre et sont donc incomplètes.
   \item \textbf{Dépassement et danger.} Une limite de qualité est une valeur de précaution. Un dépassement ne signifie pas forcément un danger immédiat, et c'est l'ARS qui évalue ensuite le risque et décide d'éventuelles restrictions.
   \item \textbf{La notion de commune touchée.} Une commune est comptée comme touchée dès un seul dépassement dans l'année, et toute sa population est comptée même si une partie seulement du réseau est concernée. La population exposée est donc un majorant.
-  \item \textbf{Quelques lignes non rattachées.} Certaines lignes n'ont pas de région connue et apparaissent comme « Null » dans la carte de chaleur.
+  \item \textbf{Les changements de réglementation.} Plusieurs métabolites ont perdu leur limite de qualité entre 2021 et 2025. Les taux de plusieurs années ne sont donc pas strictement comparables.
+  \item \textbf{Les données manquantes.} Une famille non mesurée compte pour zéro dans le score, qui peut donc être sous-estimé.
+  \item \textbf{Le classement des pesticides.} Il repose sur la valeur de la limite réglementaire et non sur une liste vérifiée molécule par molécule.
 \end{itemize}
 
 % ------------------------------------------------------------------
@@ -521,6 +524,7 @@ Rang du département & \texttt{RANK(SUM([score\_priorite]))} \\
 Population de la région & \texttt{\{ FIXED [region], [annee] : SUM([population\_dept]) \}} \\
 Population de la commune & \texttt{\{ FIXED [code\_insee] : MAX([population]) \}} \\
 Population exposée & \texttt{IF [commune\_touchee] = 1 THEN [population] END} \\
+Taux (fiche commune) & \texttt{IF COUNTD([Code Insee]) = 1 THEN SUM([Nb Prelevements Depassement]) / SUM([Nb Prelevements]) END} \\
 \bottomrule
 \end{longtable}
 \normalsize
@@ -549,6 +553,10 @@ Population exposée & \texttt{IF [commune\_touchee] = 1 THEN [population] END} \
   \item Ministère de la Santé, « Résultats du contrôle sanitaire de l'eau distribuée commune par commune », data.gouv.fr, fichiers 2021 à 2026, Licence Ouverte.
   \item Ministère de la Santé, documentation du jeu de données (description des fichiers, version 7, 2021).
   \item Insee, référentiel des communes (population et coordonnées), via geo.api.gouv.fr.
+  \item ARS Hauts-de-France, « Les métabolites du chlorothalonil » et « Recherche des métabolites de la chloridazone dans l'eau du robinet ».
+  \item ARS Bourgogne-Franche-Comté, note sur le classement du R471811 (avis de l'Anses du 29 avril 2024).
+  \item Banque des Territoires, « L'eau potable largement contaminée par des résidus d'un fongicide interdit ».
+  \item Assemblée nationale, réponses ministérielles sur l'interdiction de l'atrazine (2003-2004).
   \item Classeur Tableau Public du projet :\\ \url{https://public.tableau.com/app/profile/mohammed.benakka.ouayad/viz/Qualitdeleaudurobinet/VueFrance}
 \end{itemize}
 
